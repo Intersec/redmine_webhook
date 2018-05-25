@@ -1,187 +1,212 @@
-Redmine WebHook Plugin
-======================
+# Redmine WebHook Plugin
 
-A Redmine plugin posts webhook on creating and updating tickets.
+A [Redmine](http://www.redmine.org) plugin that posts data to a configured webhook URL upon creating and updating issues.
 
-Author
-------------------------------
-* @suer
+## Author
+* @suer (original author)
+* @phanan (rewriting and adding some features)
 
-Install
-------------------------------
+## Install
 Type below commands:
 
-    $ cd $RAILS_ROOT/plugins
-    $ git clone https://github.com/suer/redmine_webhook.git
+    $ cd $REDMINE_ROOT/plugins
+    $ git clone https://github.com/Sandy4u2013/redmine_webhook.git
     $ rake redmine:plugins:migrate RAILS_ENV=production
 
-Then, restart your redmine.
+Then, restart your Redmine.
 
-Post Data Example
-------------------------------
-
+## Post Data Examples
 ### Issue opened
-
-    {
-      "payload": {
-        "issue": {
-          "author": {
-            "icon_url": "http://www.gravatar.com/avatar/example",
-            "identity_url": null,
-            "lastname": "user",
-            "firstname": "test",
-            "mail": "test@example.com",
-            "login": "test",
-            "id": 3
-          },
-          "assignee": {
-            "icon_url": "http://www.gravatar.com/avatar/example",
-            "identity_url": null,
-            "lastname": "user",
-            "firstname": "test",
-            "mail": "test@example.com",
-            "login": "test",
-            "id": 3
-          },
-          "priority": {
-            "name": "normal",
-            "id": 2
-          },
-          "tracker": {
-            "name": "bug",
-            "id": 1
-          },
-          "parent_id": null,
-          "root_id": 191,
-          "closed_on": null,
-          "updated_on": "2014-03-01T15:17:48Z",
-          "created_on": "2014-03-01T15:17:48Z",
-          "description": "I'm having a problem with this.",
-          "subject": "Found a bug",
-          "id": 191,
-          "done_ratio": 0,
-          "start_date": "2014-03-02",
-          "due_date": null,
-          "estimated_hours": null,
-          "is_private": false,
-          "lock_version": 0,
-          "project": {
-            "homepage": "",
-            "created_on": "2013-01-12T11:50:26Z",
-            "description": "",
-            "name": "Test Project",
-            "identifier": "test",
-            "id": 4
-          },
-          "status": {
-            "name": "new",
-            "id": 1
-          }
-        },
-        "action": "opened",
-        "url": "https://example.com"
-      }
-    }
+```
+{
+  "payload": {
+    "action": "opened",
+    "issue": {
+      "id": 1,
+      "subject": "A sample bug",
+      "description": "Lorem ipsum dolor sic amet.",
+      "created_on": "2015-03-06T04:23:42Z",
+      "updated_on": "2015-03-07T10:00:59Z",
+      "closed_on": null,
+      "root_id": 1,
+      "parent_id": null,
+      "done_ratio": 0,
+      "start_date": "2015-03-02",
+      "due_date": "2015-03-20",
+      "estimated_hours": 15,
+      "is_private": false,
+      "lock_version": 14,
+      "project": {
+        "id": 1,
+        "identifier": "playground",
+        "name": "Playground",
+        "description": "A sample playground project",
+        "created_on": "2015-03-06T02:51:48Z",
+        "homepage": ""
+      },
+      "status": {
+        "id": 1,
+        "name": "New"
+      },
+      "tracker": {
+        "id": 2,
+        "name": "Feature"
+      },
+      "priority": {
+        "id": 3,
+        "name": "High"
+      },
+      "author": {
+        "id": 1,
+        "login": "admin",
+        "mail": "admin@example.net",
+        "firstname": "Redmine",
+        "lastname": "Admin",
+        "identity_url": null,
+        "icon_url": "http:\/\/www.gravatar.com\/avatar\/cb4f282fed12016bd18a879c1f27ff97?rating=PG&size=50"
+      },
+      "assignee": {
+        "id": 5,
+        "login": "demo",
+        "mail": "demo@example.net",
+        "firstname": "Demo",
+        "lastname": "User",
+        "identity_url": null,
+        "icon_url": "http:\/\/www.gravatar.com\/avatar\/0e5601057dfe4b0fa94611f1fad4fb95?rating=PG&size=50"
+      },
+      "watchers": [
+        {
+          "id": 1,
+          "login": "admin",
+          "mail": "admin@example.net",
+          "firstname": "Redmine",
+          "lastname": "Admin",
+          "identity_url": null,
+          "icon_url": "http:\/\/www.gravatar.com\/avatar\/cb4f282fed12016bd18a879c1f27ff97?rating=PG&size=50"
+        }
+      ]
+    },
+    "url": "http:\/\/localhost:3000\/issues\/1"
+  }
+}
+```
 
 ### Issue updated
-
-    {
-      "payload": {
-        "url": "https://example.com",
-        "journal": {
-          "details": [],
-          "author": {
-            "icon_url": "http://www.gravatar.com/avatar/example",
-            "identity_url": null,
-            "lastname": "user",
-            "firstname": "test",
-            "mail": "test@example.com",
-            "login": "test",
-            "id": 3
-          },
-          "assignee": {
-            "icon_url": "http://www.gravatar.com/avatar/example",
-            "identity_url": null,
-            "lastname": "user",
-            "firstname": "test",
-            "mail": "test@example.com",
-            "login": "test",
-            "id": 3
-          },
-          "private_notes": false,
-          "created_on": "2014-03-01T16:22:46Z",
-          "notes": "Fixed",
-          "id": 195
+```
+{
+  "payload": {
+    "action": "updated",
+    "issue": {
+      "id": 1,
+      "subject": "A sample bug",
+      "description": "Lorem ipsum dolor sic amet.",
+      "created_on": "2015-03-06T04:23:42Z",
+      "updated_on": "2015-03-07T10:00:59Z",
+      "closed_on": null,
+      "root_id": 1,
+      "parent_id": null,
+      "done_ratio": 100,
+      "start_date": "2015-03-02",
+      "due_date": "2015-03-20",
+      "estimated_hours": 15,
+      "is_private": false,
+      "lock_version": 14,
+      "project": {
+        "id": 1,
+        "identifier": "playground",
+        "name": "Playground",
+        "description": "A sample playground project",
+        "created_on": "2015-03-06T02:51:48Z",
+        "homepage": ""
+      },
+      "status": {
+        "id": 2,
+        "name": "In Progress"
+      },
+      "tracker": {
+        "id": 2,
+        "name": "Feature"
+      },
+      "priority": {
+        "id": 2,
+        "name": "Normal"
+      },
+      "author": {
+        "id": 1,
+        "login": "admin",
+        "mail": "admin@example.net",
+        "firstname": "Redmine",
+        "lastname": "Admin",
+        "identity_url": null,
+        "icon_url": "http:\/\/www.gravatar.com\/avatar\/cb4f282fed12016bd18a879c1f27ff97?rating=PG&size=50"
+      },
+      "assignee": {
+        "id": 5,
+        "login": "demo",
+        "mail": "demo@example.net",
+        "firstname": "Demo",
+        "lastname": "User",
+        "identity_url": null,
+        "icon_url": "http:\/\/www.gravatar.com\/avatar\/0e5601057dfe4b0fa94611f1fad4fb95?rating=PG&size=50"
+      },
+      "watchers": [
+        {
+          "id": 1,
+          "login": "admin",
+          "mail": "admin@example.net",
+          "firstname": "Redmine",
+          "lastname": "Admin",
+          "identity_url": null,
+          "icon_url": "http:\/\/www.gravatar.com\/avatar\/cb4f282fed12016bd18a879c1f27ff97?rating=PG&size=50"
+        }
+      ]
+    },
+    "journal": {
+      "id": 28,
+      "notes": "",
+      "created_on": "2015-03-07T10:00:59Z",
+      "private_notes": false,
+      "author": {
+        "id": 5,
+        "login": "demo",
+        "mail": "demo@example.net",
+        "firstname": "Demo",
+        "lastname": "User",
+        "identity_url": null,
+        "icon_url": "http:\/\/www.gravatar.com\/avatar\/0e5601057dfe4b0fa94611f1fad4fb95?rating=PG&size=50"
+      },
+      "details": [
+        {
+          "id": 56,
+          "value": 3,
+          "old_value": 1,
+          "prop_key": "status_id",
+          "property": "attr"
         },
-        "issue": {
-          "author": {
-            "icon_url": "http://www.gravatar.com/avatar/example",
-            "identity_url": null,
-            "lastname": "user",
-            "firstname": "test",
-            "mail": "test@example.com",
-            "login": "test",
-            "id": 3
-          },
-          "priority": {
-            "name": "normal",
-            "id": 2
-          },
-          "tracker": {
-            "name": "bug",
-            "id": 1
-          },
-          "parent_id": null,
-          "root_id": 196,
-          "closed_on": null,
-          "updated_on": "2014-03-01T16:22:46Z",
-          "created_on": "2014-03-01T15:44:22Z",
-          "description": "test",
-          "subject": "Found a bug",
-          "id": 196,
-          "done_ratio": 0,
-          "start_date": "2014-03-02",
-          "due_date": null,
-          "estimated_hours": null,
-          "is_private": false,
-          "lock_version": 2,
-          "project": {
-            "homepage": "",
-            "created_on": "2013-01-12T11:50:26Z",
-            "description": "",
-            "name": "Test Project",
-            "identifier": "test",
-            "id": 4
-          },
-          "status": {
-            "name": "normal",
-            "id": 1
-          }
-        },
-        "action": "updated"
-      }
-    }
+        {
+          "id": 57,
+          "value": 3,
+          "old_value": 2,
+          "prop_key": "priority_id",
+          "property": "attr"
+        }
+      ]
+    },
+    "journal_html": [
+      "<strong>Status<\/strong> changed from <i>New<\/i> to <i>Resolved<\/i>",
+      "<strong>Priority<\/strong> changed from <i>Normal<\/i> to <i>High<\/i>"
+    ],
+    "url": "http:\/\/localhost:3000\/issues\/1#change-28"
+  }
+}
+```
 
-Requirements
-------------------------------
-* Redmine 2.4, 2.6, 3.0
+## Requirements
+* Redmine >= 2.4 (not tested with 3.x)
 
-
-Known Limitations
-------------------------------
-
-An update from context menu doesn't call a webhook event.
-It is caused by a lack of functionality hooking in Redmine.
-Please see https://github.com/suer/redmine_webhook/issues/4 for details.
-
-This limitation has been affected on all Redmine versions includes 2.4, 2.6,
-and 3.0. It is not fixed in end of April, 2015.
-
-
-License
-------------------------------
+## License
 The MIT License (MIT)
-Copyright (c) suer
+© suer, [Phan An](http://phanan.net)
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
