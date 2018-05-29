@@ -7,6 +7,11 @@ module RedmineWebhook
     include Redmine::I18n
     include ERB::Util
     
+	# Return a string used to display a custom value
+	def format_value(value, custom_field)
+	  format_object(custom_field.format.formatted_value(self, custom_field, value, false), false)
+	end
+	
     def issue_to_json(issue)
       {
         :payload => {
