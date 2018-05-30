@@ -5,12 +5,13 @@ A [Redmine](http://www.redmine.org) plugin that posts data to a configured webho
 ## Author
 * @suer (original author)
 * @phanan (rewriting and adding some features)
+* @sandeepys (merged the change differences from above user repos and made it compatible with 3.x version)
 
 ## Install
 Type below commands:
 
     $ cd $REDMINE_ROOT/plugins
-    $ git clone https://github.com/Sandy4u2013/redmine_webhook.git
+    $ git clone https://github.com/sandeepys/redmine_webhook
     $ rake redmine:plugins:migrate RAILS_ENV=production
 
 Then, restart your Redmine.
@@ -202,7 +203,7 @@ Then, restart your Redmine.
 ```
 
 ## Requirements
-* Redmine >= 2.4 (not tested with 3.x)
+* Tested with Redmine 3.2.1.stable
 
 ## License
 The MIT License (MIT)
