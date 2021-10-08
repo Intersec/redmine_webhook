@@ -6,7 +6,7 @@ Rails.configuration.to_prepare do
   end
 end
 
-ActionDispatch::Callbacks.to_prepare do
+ActiveSupport::Reloader.to_prepare do
   require_dependency 'issue'
   require_dependency 'journal'
 
@@ -24,7 +24,7 @@ Redmine::Plugin.register :redmine_webhook do
   author 'suer'
   description 'A Redmine plugin posts webhook on creating and updating tickets'
   version '0.0.2'
-  url 'https://github.com/suer/redmine_webhook'
+  url 'https://github.com/Intersec/redmine_webhook'
   author_url 'http://d.hatena.ne.jp/suer'
   permission :manage_hook, {:webhook_settings => [:show,:update,:create, :destroy]}, :require => :member
 end

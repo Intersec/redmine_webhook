@@ -6,6 +6,7 @@ A [Redmine](http://www.redmine.org) plugin that posts data to a configured webho
 * @suer (original author)
 * @phanan (rewriting and adding some features)
 * @sandeepys (merged the change differences from above user repos and made it compatible with 3.x version)
+  @KamalF (made small adaptations for compatibility with 4.2 version on Rails 5)
 
 ## Install
 Type below commands:
